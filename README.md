@@ -27,6 +27,7 @@ At Luxury Time we specialize in the sales of brand new and preowned brand name q
 - Watch Related Info and Price
 - CRUD operations are highlighted
 - Contact Us if necessary
+- Customer Review
 
 ## Client Side
 
