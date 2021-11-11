@@ -192,9 +192,11 @@ const run = async () => {
 
     //add subscription
     app.post("/subscribe", async (req, res) => {
-      const subscription = req.body.email;
-      const result = await subscribeCollection.insertOne(subscription);
-      res.send(result);
+      const email = req.body.email;
+      if (email) {
+        const result = await subscribeCollection.insertOne({ email: email });
+        res.send(result);
+      }
     });
 
     //get all subscription
