@@ -26,6 +26,7 @@ const run = async () => {
     const orderCollection = database.collection("orders");
     const userCollection = database.collection("users");
     const reviewCollection = database.collection("reviews");
+    const subscribeCollection = database.collection("subscriptions");
 
     //get all watch
     app.get("/watches", async (req, res) => {
@@ -158,16 +159,6 @@ const run = async () => {
     });
 
     //role play updating for admin
-    // app.put("/users/admin", async (req, res) => {
-    //   const user = req.body;
-    //   const requester = req.decodedEmail;
-    //   const filter = { email: user.email };
-    //   const updateDoc = { $set: { role: "admin" } };
-    //   const result = await userCollection.updateOne(filter, updateDoc);
-    //   res.send(result);
-    // });
-
-    //role play updating for admin
     app.put("/users/admin", async (req, res) => {
       const user = req.body;
       const filter = { email: user.email };
@@ -197,6 +188,19 @@ const run = async () => {
         isAdmin = true;
       }
       res.send({ admin: isAdmin });
+    });
+
+    //add subscription
+    app.post("/subscribe", async (req, res) => {
+      const subscription = req.body.email;
+      const result = await subscribeCollection.insertOne(subscription);
+      res.send(result);
+    });
+
+    //get all subscription
+    app.get("/subscribe", async (req, res) => {
+      const result = await subscribeCollection.find({}).toArray();
+      res.send(result);
     });
   } finally {
     // await client.close();
